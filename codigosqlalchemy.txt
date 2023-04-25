@@ -1,0 +1,14 @@
+## buscar todos los vehiculos
+ vehiculos = Vehiculos.query.all() 
+
+
+## buscar por id
+vehiculo = Vehiculos.query.get(idVehiculo)
+
+## buscar por filtro
+vehiculos = Vehiculos.query.filter_by(estado=estado).all()
+
+
+
+##
+parqueaderos = Parqueaderos.query.filter_by(estado=1, idUsuarioPar=idUsuarioPar).all()
