@@ -14,20 +14,21 @@ class Clientecontroller():
                 return jsonify(toClientes)
 
     def insertar_cliente(self):
-        
+
         nombre = request.json["nombre"]
         apellido = request.json["apellido"]
         documento = request.json["documento"]
         correo = request.json["correo"]
-        telefono = request.json["telefono"]    
-        new_cliente = Cliente(id,nombre,apellido,documento,correo,telefono)
+        telefono = request.json["telefono"]
+        new_cliente = Cliente(id, nombre, apellido,
+                              documento, correo, telefono)
         db.session.add(new_cliente)
         db.session.commit()
         return jsonify({
-                'message':'Cliente registrado con exito',
-                'status':'ok'
-                })
-    
+            'message': 'Cliente registrado con exito',
+            'status': 'ok'
+        })
+
     def consultar_cliente_id(self):
 
         id = request.json["id"]
@@ -36,7 +37,6 @@ class Clientecontroller():
             return jsonify({'message': 'Cliente not found'})
         else:
             return jsonify(c_Cliente.getDatos())
-
 
     def consultar_cliente_cedula(self):
 
@@ -48,8 +48,6 @@ class Clientecontroller():
         else:
             toClientes = [cliente.getDatos() for cliente in c_Cliente]
             return jsonify(toClientes)
-            
-
 
     def editar_cliente(self):
         id = request.json["id"]
@@ -64,8 +62,7 @@ class Clientecontroller():
             c_cliente.telefono = request.json["telefono"]
 
             db.session.commit()
-            return jsonify({'message': 'cliente actualizado con exito'})
-
+            return jsonify({'message': 'cliente' + id + 'actualizado con exito'})
 
     def eliminar_cliente(self):
         id = request.json["id"]
@@ -75,4 +72,4 @@ class Clientecontroller():
         else:
             db.session.delete(c_Cliente)
             db.session.commit()
-            return jsonify({'message': 'Cliente eliminado con exito'})
+            return jsonify({'message': "Cliente" + id + "eliminado con exito"})

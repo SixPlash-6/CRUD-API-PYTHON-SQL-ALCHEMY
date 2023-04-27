@@ -30,3 +30,15 @@ def consultar_cliente_id():
 @cross_origin()
 def consultar_cliente_cedula():
     return con_cliente.consultar_cliente_cedula()
+
+
+@clientes.route('/eliminar_cliente', methods=['DELETE'])
+@cross_origin()
+def eliminar_cliente():
+    return con_cliente.eliminar_cliente()
+
+
+@clientes.route('/insertar_cliente', methods=['POST'])
+@cross_origin()
+def insertar_cliente():
+    return con_cliente.insertar_cliente()
