@@ -5,7 +5,9 @@ from routes.clienteroute import clientes
 from routes.productoroute import productos
 from routes.ventaroute import ventas
 
+
 app = Flask(__name__)
+CORS(app)
 cors = CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:5000"}})
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost/informacion'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -15,8 +17,8 @@ app.register_blueprint(productos)
 app.register_blueprint(ventas)
 
 
-@app.route('/')
 @cross_origin()
+@app.route('/')
 def index():
     return jsonify({'message': 'welcome'})
 

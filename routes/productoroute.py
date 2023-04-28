@@ -1,25 +1,26 @@
-from flask import Flask, jsonify, request, Blueprint
-from flask_cors import  cross_origin
+from flask import Blueprint
+from flask_cors import cross_origin
 
-from controllers.productocontroller import *
+from controllers.productocontroller import Productocontroller
 
 productos = Blueprint('productos', __name__)
 
-con_producto= Productocontroller()
+con_producto = Productocontroller()
 
-@productos.route('/consultar_productos', methods=['GET'])
-@cross_origin() 
-def consultar_productos():
-    return con_producto.consultar_productos()
+cross_origin()
 
-
-@productos.route('/insertar_producto', methods=['POST'])
-@cross_origin() 
-def insertar_producto():
-    return con_producto.insertar_producto()
-
-
-@productos.route('/consultar_producto_id', methods=['GET'])
-@cross_origin() 
-def consultar_producto_id():
-    return con_producto.consultar_producto_id()
+# Listar todo
+productos.route('/consultar_productos',
+                methods=['GET'])(con_producto.consultar_productos)
+# Buscar producto por id
+productos.route('/consultar_producto_id',
+                methods=['GET'])(con_producto.consultar_producto_id)
+# Insertar producto
+productos.route('/insertar_producto',
+                methods=['POST'])(con_producto.insertar_producto)
+# Editar
+productos.route('/editar_producto_id/<id>',
+                methods=['PUT'])(con_producto.editar_producto)
+# Eliminar
+productos.route('/eliminar_producto/<id>',
+                methods=['DELETE'])(con_producto.eliminar_producto)

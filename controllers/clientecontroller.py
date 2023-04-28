@@ -11,7 +11,7 @@ class Clientecontroller():
                 return jsonify({'message': 'no hay clientes'})
             else:
                 toClientes = [cliente.getDatos() for cliente in clientes]
-                return jsonify(toClientes)
+        return jsonify(toClientes)
 
     def insertar_cliente(self):
 
@@ -30,7 +30,6 @@ class Clientecontroller():
         })
 
     def consultar_cliente_id(self):
-
         id = request.json["id"]
         c_Cliente = Cliente.query.get(id)
         if not c_Cliente:
@@ -39,9 +38,7 @@ class Clientecontroller():
             return jsonify(c_Cliente.getDatos())
 
     def consultar_cliente_cedula(self):
-
         v_cedula = request.json["documento"]
-        print(v_cedula)
         c_Cliente = Cliente.query.filter_by(documento=v_cedula).all()
         if not c_Cliente:
             return jsonify({'message': 'Cliente not found'})
@@ -49,8 +46,7 @@ class Clientecontroller():
             toClientes = [cliente.getDatos() for cliente in c_Cliente]
             return jsonify(toClientes)
 
-    def editar_cliente(self):
-        id = request.json["id"]
+    def editar_cliente(self, id):
         c_cliente = Cliente.query.get(id)
         if not c_cliente:
             return jsonify({'message': 'cliente no encontrado'})
@@ -62,14 +58,15 @@ class Clientecontroller():
             c_cliente.telefono = request.json["telefono"]
 
             db.session.commit()
-            return jsonify({'message': 'cliente' + id + 'actualizado con exito'})
+            return jsonify({'message': 'cliente ' f"{id}" ' actualizado con exito',
+                            "status": "ok"})
 
-    def eliminar_cliente(self):
-        id = request.json["id"]
+    def eliminar_cliente(self, id):
         c_Cliente = Cliente.query.get(id)
         if not c_Cliente:
             return jsonify({'message': 'Cliente no encontrado'})
         else:
             db.session.delete(c_Cliente)
             db.session.commit()
-            return jsonify({'message': "Cliente" + id + "eliminado con exito"})
+            return jsonify({'message': "Cliente " f"{id}" " eliminado con exito",
+                            "status": "ok"})
