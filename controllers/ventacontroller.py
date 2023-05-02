@@ -13,21 +13,21 @@ class Ventacontroller():
                 toVentas = [venta.getDatos() for venta in ventas]
                 return jsonify(toVentas)
 
-    def insertar_cliente(self):
-        
+    def insertar_venta(self):
+
         idcliente = request.json["idcliente"]
         idproducto = request.json["idproducto"]
         cantidad = request.json["cantidad"]
         total = request.json["total"]
-        fehca = request.json["fehca"]    
-        new_Venta = Venta(idcliente,idproducto,cantidad,total,fehca)
+        fecha = request.json["fecha"]
+        new_Venta = Venta(idcliente, idproducto, cantidad, total, fecha)
         db.session.add(new_Venta)
         db.session.commit()
         return jsonify({
-                'message':'Venta registrado con exito',
-                'status':'ok'
-                })
-    
+            'message': 'Venta registrado con exito',
+            'status': 'ok'
+        })
+
     def consultar_venta_id(self):
 
         id = request.json["id"]
@@ -36,4 +36,3 @@ class Ventacontroller():
             return jsonify({'message': 'Producto not found'})
         else:
             return jsonify(c_venta.getDatos())
-            
