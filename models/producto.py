@@ -10,7 +10,7 @@ class Producto(db.Model):
     categoria = db.Column(db.String(50), nullable=False)
     subcategoria = db.Column(db.String(50), nullable=False)
     precio = db.Column(db.Integer, nullable=True)
-    # venta = db.relationship('Venta', backref='producto', lazy=True)
+    venta = db.relationship('Venta', backref='producto', lazy=True)
 
     def __init__(self, codigo, nombre, categoria, subcategoria, precio):
 
